@@ -1,0 +1,21 @@
+<!-- home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Welcome, {{ username }}!</h1>
+    <h2>Your Health Data:</h2>
+    {% for data in health_data %}
+        <p>Weight: {{ data['weight'] }}</p>
+        <p>Height: {{ data['height'] }}</p>
+        <p>Health History: {{ data['health_history'] }}</p>
+        <!-- Include other fields you want to display for group 'H' -->
+        <hr>
+    {% endfor %}
+    <a href="{{ url_for('main.logout') }}">Logout</a>
+</body>
+</html>

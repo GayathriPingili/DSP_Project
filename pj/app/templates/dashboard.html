@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Add any additional styles or scripts here -->
+    <style>
+        /* Add custom styles here if needed */
+    </style>
+</head>
+<body class="container mt-5">
+
+    <h1>Welcome to the Dashboard</h1>
+
+    <div>
+        <h2>Your Health Data</h2>
+
+        {% if current_user.group == 'H' %}
+            <div class="mb-3">
+                <a href="{{ url_for('main.add_patient') }}" class="btn btn-primary">Add New Patient</a>
+            </div>
+            <!-- Display table for Group H -->
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Weight</th>
+                            <th>Height</th>
+                            <th>Health History</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Use Jinja or any templating engine to loop through the data and display it -->
+                        {% for record in health_data %}
+                            <tr>
+                                <td>{{ record.first_name }}</td>
+                                <td>{{ record.last_name }}</td>
+                                <td>{{ record.age }}</td>
+                                <td>{{ record.gender }}</td>
+                                <td>{{ record.weight }}</td>
+                                <td>{{ record.height }}</td>
+                                <td>{{ record.health_history }}</td>
+                                <!-- Add other fields as needed -->
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% elif current_user.group == 'R' %}
+            <!-- Display table for Group R -->
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Weight</th>
+                            <th>Height</th>
+                            <th>Health History</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Use Jinja or any templating engine to loop through the data and display it -->
+                        {% for record in health_data %}
+                            <tr>
+                                <td>{{ record.age }}</td>
+                                <td>{{ record.gender }}</td>
+                                <td>{{ record.weight }}</td>
+                                <td>{{ record.height }}</td>
+                                <td>{{ record.health_history }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-danger">Invalid user group.</p>
+        {% endif %}
+    </div>
+
+    <!-- Add any additional content or features as needed -->
+    <a href="{{ url_for('main.logout') }}" class="btn btn-secondary mt-3">Logout</a>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Add any additional scripts here -->
+</body>
+</html>
